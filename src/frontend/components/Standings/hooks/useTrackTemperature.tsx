@@ -1,9 +1,25 @@
 import { useMemo } from 'react';
 import { useTelemetry } from '@irdashies/context';
+import { useGeneralSettings } from '@irdashies/context';
+
+
 
 export const useTrackTemperature = () => {
-  const trackTempVal = useTelemetry('TrackTempCrew');
-  const airTempVal = useTelemetry('AirTemp');
+  const { tempUnits } = useGeneralSettings() || {};
+  const trackTempVal = useTelemetry('TrackTempCrew')
+  const airTempVal = useTelemetry('AirTemp')
+  
+  if (tempUnits == 'Fahrenheit') {
+      if (trackTempVal && trackTempVal.value) {
+          trackTempVal.value = trackTempVal.value.map((val) => (val * 9/5) + 32);
+          trackTempVal.unit = 'F';
+      }
+      if (airTempVal && airTempVal.value) {
+          airTempVal.value = airTempVal.value.map((val) => (val * 9/5) + 32);
+          airTempVal.unit = 'F';
+      }
+    }
+   
 
   const trackTemp = useMemo(() => {
     const trackTemp = trackTempVal?.value[0] ?? 0;

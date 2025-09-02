@@ -13,7 +13,7 @@ export const defaultDashboard: DashboardLayout = {
       },
       config: {
         iRatingChange: { enabled: true },
-        badge: { enabled: true },
+        badge: { enabled: false },
         delta: { enabled: true },
         lastTime: { enabled: true },
         fastestTime: { enabled: true },
@@ -108,5 +108,6 @@ export const defaultDashboard: DashboardLayout = {
   generalSettings: {
     fontSize: 'sm',
     colorPalette: 'default',
+    tempUnits: 'Fahrenheit',
   },
 };

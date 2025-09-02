@@ -97,7 +97,7 @@ describe('dashboards', () => {
 
     it('should update an existing dashboard', () => {
       const existingDashboards = { default: defaultDashboard };
-      const updatedDashboard: DashboardLayout = { widgets: [], generalSettings: { fontSize: 'lg', colorPalette: 'black' }};
+        const updatedDashboard: DashboardLayout = { widgets: [], generalSettings: { fontSize: 'lg', colorPalette: 'black', tempUnits: 'Fahrenheit' }};
       mockReadData.mockReturnValue(existingDashboards);
 
       saveDashboard('default', updatedDashboard);
@@ -247,7 +247,7 @@ describe('dashboards', () => {
 
       const updatedDashboard = getOrCreateDefaultDashboard();
 
-      expect(updatedDashboard.generalSettings).toEqual({ fontSize: 'sm', colorPalette: 'default' });
+        expect(updatedDashboard.generalSettings).toEqual({ fontSize: 'sm', colorPalette: 'default', tempUnits: 'Fahrenheit'});
     });
 
     it('should preserve general settings from the existing dashboard', () => {
@@ -258,7 +258,7 @@ describe('dashboards', () => {
       
       const updatedDashboard = getOrCreateDefaultDashboard();
 
-      expect(updatedDashboard.generalSettings).toEqual({ fontSize: 'lg', colorPalette: 'default' });
+        expect(updatedDashboard.generalSettings).toEqual({ fontSize: 'lg', colorPalette: 'default', tempUnits: 'Fahrenheit' });
     });
   });
 });

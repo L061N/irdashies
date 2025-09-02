@@ -10,6 +10,11 @@ const FONT_SIZE_PRESETS = {
   xl: 'Extra Large',
 };
 
+const TEMP_PRESETS: Record<string, string> = {
+    Fahrenheit: 'Fahrenheit',
+    Celsius: 'Celsius',
+};
+
 const COLOR_THEME_PRESETS: Record<string, string> = {
   default: 'Slate (default)',
   black: 'Black',
@@ -20,8 +25,10 @@ export const GeneralSettings = () => {
   const [settings, setSettings] = useState<GeneralSettingsType>({
     fontSize: currentDashboard?.generalSettings?.fontSize ?? 'sm',
     colorPalette: currentDashboard?.generalSettings?.colorPalette ?? 'default',
+    tempUnits: currentDashboard?.generalSettings?.tempUnits ?? 'Fahrenheit',
     showOnlyWhenOnTrack:
-      currentDashboard?.generalSettings?.showOnlyWhenOnTrack ?? false,
+          currentDashboard?.generalSettings?.showOnlyWhenOnTrack ?? false,
+     
   });
 
   if (!currentDashboard || !onDashboardUpdated) {
@@ -46,13 +53,21 @@ export const GeneralSettings = () => {
     const newSettings = { ...settings, colorPalette: newTheme };
     setSettings(newSettings);
     updateDashboard(newSettings);
-  };
+    };
+
+    const handleTempuratureUnits = (t_units: 'Fahrenheit' | 'Celsius') => {
+        const newSettings = { ...settings, tempUnits: t_units };
+        setSettings(newSettings);
+        updateDashboard(newSettings);
+    };
 
   const handleShowOnlyWhenOnTrackChange = (checked: boolean) => {
     const newSettings = { ...settings, showOnlyWhenOnTrack: checked };
     setSettings(newSettings);
     updateDashboard(newSettings);
-  };
+    };
+
+  
 
   return (
     <div className="flex flex-col h-full space-y-6">
@@ -136,6 +151,28 @@ export const GeneralSettings = () => {
           </select>
         </div>
       </div>
+
+          {/* Temp Settings */}
+          <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-medium text-slate-200">Tempurature Units</h3>
+                  <div className="flex items-center gap-2">
+                      <span className="text-sm text-slate-300">{TEMP_PRESETS[settings.tempUnits ?? 'Fahrenheit']}</span>
+                  </div>
+              </div>
+
+              {/* Color Theme Dropdown */}
+              <div className="mt-4">
+                  <select
+                      value={settings.tempUnits ?? 'Fahrenheit'}
+                      onChange={(e) => handleTempuratureUnits(e.target.value as 'Fahrenheit' | 'Celsius')}
+                      className="w-full px-3 py-2 bg-slate-700 text-slate-300 rounded border border-slate-600 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  >
+                      <option value="Fahrenheit">{TEMP_PRESETS.Fahrenheit}</option>
+                      <option value="Celsius">{TEMP_PRESETS.Celsius}</option>
+                  </select>
+              </div>
+          </div>
 
       {/* Show Only When On Track Settings */}
       <div className="flex items-center justify-between">

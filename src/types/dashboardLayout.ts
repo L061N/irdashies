@@ -25,6 +25,7 @@ export interface DashboardWidget {
 
 export interface GeneralSettingsType {
   fontSize?: 'xs' | 'sm' | 'lg' | 'xl';
+  tempUnits?: 'Fahrenheit' | string;
   colorPalette?: 'default' | string;
   showOnlyWhenOnTrack?: boolean;
 }
