@@ -146,7 +146,9 @@ As you may know, the iRacing SDK is only available on Windows. To develop on Mac
 ## General Settings
 
 Adjust Overlay Text Size
+
 Change Overlay Theme (Blue/Black)
+
 Change Tempurature Units (C/F)
 
 ![Settings](./docs/assets/GeneralSettings.png)
