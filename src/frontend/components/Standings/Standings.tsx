@@ -42,7 +42,7 @@ export const Standings = () => {
                   carIdx={result.carIdx}
                   classColor={result.carClass.color}
                   carNumber={settings?.carNumber?.enabled ?? true ? result.driver?.carNum || '' : undefined}
-                  name={result.driver?.name || ''}
+                  name={result.driver?.nameTeam || ''}
                   isPlayer={result.isPlayer}
                   hasFastestTime={result.hasFastestTime}
                   delta={settings?.delta?.enabled ? result.delta : undefined}

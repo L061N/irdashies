@@ -65,7 +65,7 @@ export const DriverInfoRow = ({
       ].join(' ')}
     >
       <td
-        className={`text-center text-white px-2 ${isPlayer ? `${getTailwindStyle(classColor).classHeader}` : ''}`}
+        className={`text-center text-white px-1 ${isPlayer ? `${getTailwindStyle(classColor).classHeader}` : ''}`}
       >
         {position}
       </td>

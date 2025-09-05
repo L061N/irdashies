@@ -1,4 +1,5 @@
 export interface Camera {
+  
   CameraNum: number;
   CameraName: string;
 }

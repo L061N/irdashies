@@ -66,7 +66,8 @@ export const useSessionIsOfficial = () =>
   );
 
 export const useDriverCarIdx = () =>
-  useStore(useSessionStore, (state) => state.session?.DriverInfo?.DriverCarIdx);
+    useStore(useSessionStore, (state) => state.session?.DriverInfo?.DriverCarIdx);
+
 
 export const useSessionPositions = (sessionNum: number | undefined) =>
   useStoreWithEqualityFn(

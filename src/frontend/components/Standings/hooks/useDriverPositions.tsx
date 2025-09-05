@@ -73,7 +73,7 @@ export const useDriverStandings = () => {
   const drivers = useDrivers();
   const radioTransmitCarIdx = useTelemetryValue('RadioTransmitCarIdx');
   const carStates = useCarState();
-  const playerCarIdx = useDriverCarIdx();
+  const playerCarIdx = useTelemetryValue('CamCarIdx');
   const sessionType = useCurrentSessionType();
   const qualifyingPositions = useSessionQualifyingResults();
 

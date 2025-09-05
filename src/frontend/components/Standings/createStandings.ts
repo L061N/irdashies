@@ -11,6 +11,7 @@ export interface Standings {
   isPlayer: boolean;
   driver: {
     name: string;
+    nameTeam: string;
     carNum: string;
     license: string;
     rating: number;
@@ -108,6 +109,7 @@ export const createDriverStandings = (
         isPlayer: result.CarIdx === session.playerIdx,
         driver: {
           name: driver.UserName,
+          nameTeam: driver.TeamName,
           carNum: driver.CarNumber,
           license: driver.LicString,
           rating: driver.IRating,

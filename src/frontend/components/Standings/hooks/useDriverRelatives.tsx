@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import {
   useDriverCarIdx,
   useSessionStore,
+  useTelemetryValue,
   useTelemetryValues,
 } from '@irdashies/context';
 import { useDriverStandings } from './useDriverPositions';
@@ -9,7 +10,8 @@ import { useDriverStandings } from './useDriverPositions';
 export const useDriverRelatives = ({ buffer }: { buffer: number }) => {
   const drivers = useDriverStandings();
   const carIdxLapDistPct = useTelemetryValues('CarIdxLapDistPct');
-  const playerIndex = useDriverCarIdx();
+  //const playerIndex = useDriverCarIdx();
+  const playerIndex = useTelemetryValue('CamCarIdx');
   const paceCarIdx =
     useSessionStore((s) => s.session?.DriverInfo?.PaceCarIdx) ?? -1;
 
