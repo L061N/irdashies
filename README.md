@@ -143,6 +143,14 @@ npm run lint
 
 As you may know, the iRacing SDK is only available on Windows. To develop on Mac OS, there is a mock SDK that is loaded which generates some dummy data for you to work with. This is useful for developing the UI components and widgets.
 
+## General Settings
+
+Adjust Overlay Text Size
+Change Overlay Theme (Blue/Black)
+Change Tempurature Units (C/F)
+
+![Settings](./docs/assets/GeneralSettings.png)
+
 ## Available overlays
 
 ### Input trace
