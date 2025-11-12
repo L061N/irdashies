@@ -277,7 +277,7 @@ export const CarManufacturer = ({
 
     return (
         <span
-            className={`inline-block w-[1em] h-[1em] bg-no-repeat bg-size-[100%_auto] ${sizeClasses[size]}`}
+            className={`inline-block w-[1em] h-[1em] bg-no-repeat bg-size-[100%_auto] ml-0.75 mr-0.75 scale-150 ${sizeClasses[size]}`}
             style={{
                 backgroundImage: `url(${carLogoImage})`,
                 backgroundPosition: `${carLogoPositions[carManufacturer].x} ${(carLogoPositions[carManufacturer].y / imagescale * spriteHeight).toString() + '%'}`,
@@ -289,3 +289,4 @@ export const CarManufacturer = ({
         />
     );
 };
+
