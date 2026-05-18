@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { useSessionStore } from '../SessionStore/SessionStore';
-import { useTelemetryStore } from '../TelemetryStore/TelemetryStore';
-import { useCarSpeedsStore } from '../CarSpeedStore/CarSpeedsStore';
-import { useLapTimesStore } from '../LapTimesStore/LapTimesStore';
-import { usePitLapStore } from '../PitLapStore/PitLapStore';
+import { 
+  useSessionStore,
+  useTelemetryStore,
+  useCarSpeedsStore,
+  useLapTimesStore,
+  usePitLapStore } from '@irdashies/context';
 import { useFuelStore } from '../../components/FuelCalculator/FuelStore';
 import logger from '@irdashies/utils/logger';
 
