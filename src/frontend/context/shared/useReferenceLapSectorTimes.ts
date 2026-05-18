@@ -1,7 +1,10 @@
 import { useMemo } from 'react';
-import { useDriverCarIdx, useSessionStore } from '../SessionStore/SessionStore';
-import { useReferenceLapStore } from '../ReferenceLapStore/ReferenceLapStore';
-import { useSectorTimingStore } from '../SectorTimingStore/SectorTimingStore';
+import { 
+  useDriverCarIdx, 
+  useSessionStore,
+  useReferenceLapStore,
+  useSectorTimingStore,
+} from '@irdashies/context';
 import { interpolateAtPoint } from '../../components/Standings/interpolation';
 
 /**
