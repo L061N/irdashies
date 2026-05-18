@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDashboard } from '@irdashies/context';
 import { GeneralSettingsType } from '@irdashies/types';
 
@@ -199,9 +199,14 @@ export const GeneralSettings = ({ previewMode }: GeneralSettingsProps = {}) => {
       ? settings.fontWeight
       : 'normal';
 
-  if (settings.fontWeight != resolvedFontWeight) {
-    handleFontWeightChange(resolvedFontWeight);
-  }
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+      if (settings.fontWeight !== resolvedFontWeight) {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
+          handleFontWeightChange(resolvedFontWeight);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings.fontType, resolvedFontWeight]);
 
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const sliderValue = parseInt(event.target.value);

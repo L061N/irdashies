@@ -102,9 +102,9 @@ export const SettingsLayout = () => {
           <Routes>
             <Route
               path="/"
-              element={<Navigate to="/settings/general" replace />}
+              element={<Navigate to="general" replace />}
             />
-            <Route path="/:widgetId" element={<SettingsLoader />} />
+            <Route path=":widgetId" element={<SettingsLoader />} />
           </Routes>
         </div>
       </div>

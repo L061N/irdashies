@@ -47,9 +47,12 @@ export const SettingsLoader = ({ previewMode }: SettingsLoaderProps = {}) => {
 
   // 2. Find specific widget instance (may be undefined if widgetId is a type name)
   const widget = currentDashboard?.widgets.find((w) => w.id === widgetId);
-  const type = widget ? widget.type || widget.id : widgetId;
 
-  switch (type) {
+    if (!widget) {
+        return <div className="text-slate-400">Select a widget to edit</div>;
+    }
+
+    switch (widget.id) {
     case 'standings':
       return <StandingsSettings />;
     case 'relative':
@@ -57,7 +60,7 @@ export const SettingsLoader = ({ previewMode }: SettingsLoaderProps = {}) => {
     case 'weather':
       return <WeatherSettings />;
     case 'fuel':
-      return <FuelSettings widgetId={widget?.id} />;
+      return <FuelSettings key={widget.id} widgetId={widget.id} />;
     case 'map':
       return <TrackMapSettings />;
     case 'flatmap':
@@ -90,7 +93,7 @@ export const SettingsLoader = ({ previewMode }: SettingsLoaderProps = {}) => {
       return <SectorDeltaSettings />;
     default:
       return widget ? (
-        <div className="text-red-400">No settings available for {type}</div>
+        <div className="text-red-400">No settings available for { widget?.type || widgetId}</div>
       ) : (
         <div className="text-slate-400">Select a widget to edit</div>
       );

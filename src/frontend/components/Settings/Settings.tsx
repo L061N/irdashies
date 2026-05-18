@@ -2,8 +2,9 @@ import { useDashboard } from '@irdashies/context';
 import { SettingsLayout } from './SettingsLayout';
 
 export const Settings = () => {
-  const { currentDashboard, onDashboardUpdated } = useDashboard();
-  if (!currentDashboard || !onDashboardUpdated) {
+	const { currentDashboard } = useDashboard();
+
+	if (!currentDashboard) {
     return <>Loading...</>;
   }
 
