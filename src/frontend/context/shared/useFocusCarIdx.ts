@@ -1,5 +1,7 @@
-import { useDriverCarIdx } from '../SessionStore/SessionStore';
-import { useTelemetryValue } from '../TelemetryStore/TelemetryStore';
+import { 
+  useDriverCarIdx,
+  useTelemetryValue,
+} from '@irdashies/context';
 
 /**
  * Hook to get the car index that should be the "focus" for relative displays.
