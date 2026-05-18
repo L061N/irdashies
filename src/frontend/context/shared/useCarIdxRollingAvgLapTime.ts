@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useLapTimeHistory } from '../LapTimesStore/LapTimesStore';
+import { useLapTimeHistory } from '@irdashies/context';
 
 /**
  * Returns a rolling average lap time per carIdx over the last `numLaps` laps.
