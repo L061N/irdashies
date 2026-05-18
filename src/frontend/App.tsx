@@ -16,29 +16,6 @@ import { OverlayContainer } from './components/OverlayContainer';
 import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
 
 /**
- * Check if this window is the settings window based on URL hash
- */
-const isSettingsWindow = () => {
-  return window.location.hash.startsWith('#/settings');
-};
-
-/**
- * Settings window content - uses HashRouter for settings routes
- */
-const SettingsApp = () => {
-  return (
-    <>
-      <SessionProvider bridge={window.irsdkBridge} />
-      <HashRouter>
-        <Routes>
-          <Route path="/settings/*" element={<Settings />} />
-        </Routes>
-      </HashRouter>
-    </>
-  );
-};
-
-/**
  * Overlay container content - renders all widgets in a single window
  */
 const OverlayApp = () => {
@@ -51,32 +28,36 @@ const OverlayApp = () => {
   );
 };
 
+/**
+    Rework Settings UI Logic
+*/
+
+const AppProviders = ({ children }: { children: React.ReactNode }) => {
+	return (
+		<DashboardProvider bridge={window.dashboardBridge}>
+			<TelemetryProvider bridge={window.irsdkBridge}>
+				<RunningStateProvider bridge={window.irsdkBridge}>
+					<SessionProvider bridge={window.irsdkBridge} />
+					<PitLaneProvider bridge={window.pitLaneBridge} />
+					<ReferenceStoreProvider bridge={window.referenceLapsBridge} />
+					{children}
+				</RunningStateProvider>
+			</TelemetryProvider>
+		</DashboardProvider>
+	);
+};
+
 const App = () => {
-  const isSettings = isSettingsWindow();
-
-  if (isSettings) {
-    return (
-      <ErrorBoundary label="settings" resetAfterMs={2000}>
-        <DashboardProvider bridge={window.dashboardBridge}>
-          <SettingsApp />
-        </DashboardProvider>
-      </ErrorBoundary>
-    );
-  }
-
-  return (
-    <ErrorBoundary label="overlay" resetAfterMs={2000}>
-      <DashboardProvider bridge={window.dashboardBridge}>
-        <RunningStateProvider bridge={window.irsdkBridge}>
-          <SessionProvider bridge={window.irsdkBridge} />
-          <TelemetryProvider bridge={window.irsdkBridge} />
-          <PitLaneProvider bridge={window.pitLaneBridge} />
-          <ReferenceStoreProvider bridge={window.referenceLapsBridge} />
-          <OverlayApp />
-        </RunningStateProvider>
-      </DashboardProvider>
-    </ErrorBoundary>
-  );
+	return (
+		<ErrorBoundary label="app" resetAfterMs={2000}>
+			<AppProviders>
+				<Routes>
+					<Route path="/settings/*" element={<Settings />} />
+					<Route path="/" element={<OverlayApp />} />
+				</Routes>
+			</AppProviders>
+		</ErrorBoundary>
+	);
 };
 
 const el = document.getElementById('app');
@@ -87,4 +68,8 @@ if (!el) {
 export default App;
 
 const root = createRoot(el);
-root.render(<App />);
+root.render(
+	<HashRouter>
+		<App />
+	</HashRouter>
+);
