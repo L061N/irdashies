@@ -1,17 +1,27 @@
 import type { IrSdkBridge } from '@irdashies/types';
-import { useTelemetryStore } from './TelemetryStore';
+import { useTelemetryStore } from '@irdashies/context';
 import { useEffect } from 'react';
+import type { PropsWithChildren } from 'react';
 
 export interface TelemetryProviderProps {
   bridge: IrSdkBridge | Promise<IrSdkBridge>;
 }
 
-export const TelemetryProvider = ({ bridge }: TelemetryProviderProps) => {
+export const TelemetryProvider = ({
+    bridge,
+    children,
+}: PropsWithChildren<TelemetryProviderProps>) => {
   const setTelemetry = useTelemetryStore((state) => state.setTelemetry);
 
   useEffect(() => {
     let cancelled = false;
     let unsub: (() => void) | undefined;
+
+    const attach = (resolved: IrSdkBridge) => {
+        unsub = resolved.onTelemetry((telemetry) => {
+            setTelemetry(telemetry);
+        });
+    };
 
     if (bridge instanceof Promise) {
       bridge.then((resolved) => {
@@ -19,9 +29,7 @@ export const TelemetryProvider = ({ bridge }: TelemetryProviderProps) => {
           resolved.stop();
           return;
         }
-        unsub = resolved.onTelemetry((telemetry) => {
-          setTelemetry(telemetry);
-        });
+        attach(resolved);
       });
       return () => {
         cancelled = true;
@@ -30,17 +38,14 @@ export const TelemetryProvider = ({ bridge }: TelemetryProviderProps) => {
       };
     }
 
-    unsub = bridge.onTelemetry((telemetry) => {
-      setTelemetry(telemetry);
-    });
+    attach(bridge);
 
     return () => {
       cancelled = true;
       if (unsub) unsub();
       bridge.stop();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bridge]);
+  }, [bridge, setTelemetry]);
 
-  return <></>;
+  return <>{children}</>;
 };
