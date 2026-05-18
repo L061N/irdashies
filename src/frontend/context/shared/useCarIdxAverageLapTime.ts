@@ -1,5 +1,7 @@
-import { useLapTimes } from '../LapTimesStore/LapTimesStore';
-import { useCarIdxClassEstLapTime } from '../SessionStore/SessionStore';
+import { 
+  useLapTimes,
+  useCarIdxClassEstLapTime
+} from '@irdashies/context';
 
 /**
  * @returns An array of average lap times in seconds for each car in the session by index. Uses estimated class lap time if lap time is not known.
