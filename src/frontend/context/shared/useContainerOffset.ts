@@ -1,4 +1,4 @@
-import { useDashboard } from '../DashboardContext/DashboardContext';
+import { useDashboard } from '@irdashies/context';
 
 /**
  * Returns the offset needed to transform widget coordinates from screen space
