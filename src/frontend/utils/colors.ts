@@ -6,14 +6,16 @@ export interface TailwindStyles {
   borderColor: string;
 }
 
-// iRacing car class decimals to color names (6 known tiers)
+// iRacing car class decimals to color names (8 known tiers)
 const IRACING_CLASS_COLOR_MAP: Record<number, string> = {
   16767577: 'yellow', // Class 1 - fastest
   3395327: 'blue', // Class 2
   16734344: 'red', // Class 3
   11430911: 'cyan', // Class 4
   5504887: 'pink', // Class 5
-  13849600: 'purple', // Class 6 - slowest
+  13849600: 'purple', // Class 6 
+  16776960: 'lime', // Class 7 (Needs correct decimal value)
+  39321: 'amber', // Class 8  - slowest
 };
 
 // Color names to hex values for classColorMap lookup
@@ -24,6 +26,8 @@ const COLOR_NAME_TO_HEX: Record<string, string> = {
   cyan: '#06b6d4',
   pink: '#ff5888',
   purple: '#ae6bff',
+  lime: '#84cc16',
+  amber: '#f59e0b',
 };
 
 export const getTailwindStyle = (
@@ -37,6 +41,8 @@ export const getTailwindStyle = (
     const colorName = IRACING_CLASS_COLOR_MAP[color];
     if (colorName) {
       hex = COLOR_NAME_TO_HEX[colorName];
+    } else {
+        hex = `#78716c`; // Default to stone if no mapped color
     }
   } else if (highlightColor !== undefined) {
     hex = `#${highlightColor.toString(16).padStart(6, '0')}`;
