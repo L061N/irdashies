@@ -20,6 +20,7 @@ import {
 import {
   createDriverStandings,
   groupStandingsByClass,
+  groupStandingsBySpeed,
   sliceRelevantDrivers,
   augmentStandingsWithIRating,
   augmentStandingsWithGap,
@@ -84,6 +85,7 @@ export const useDriverStandings = (
         }));
   const standingsSettings = useStandingsSettings();
   const useLivePositionStandings = standingsSettings?.useLivePosition ?? false;
+  const customClassOrdering = standingsSettings?.customClassOrdering ?? false;
   const driverLivePositions = useDriverLivePositions({
     enabled: useLivePositionStandings,
   });
@@ -153,7 +155,9 @@ export const useDriverStandings = (
     }
 
     // Group and *sort drivers inside each class by classPosition* (this respects live positions)
-    let groupedByClass = groupStandingsByClass(initialStandings);
+    let groupedByClass = customClassOrdering
+      ? groupStandingsBySpeed(initialStandings)
+      : groupStandingsByClass(initialStandings);
     if (useLivePositionStandings) {
       groupedByClass = groupedByClass.map(([classId, classStandings]) => [
         classId,
@@ -233,6 +237,7 @@ export const useDriverStandings = (
     minPlayerClassDrivers,
     numTopDrivers,
     driverLivePositions,
+    customClassOrdering,
   ]);
 
   return standingsWithGain;
