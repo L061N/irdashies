@@ -35,7 +35,7 @@ export const PositionCell = memo(
     return (
       <td
         data-column="position"
-        className={`w-auto text-center ${pxClass} whitespace-nowrap ${positionColor} ${textColor}`}
+        className={`w-auto text-center ${pxClass} whitespace-nowrap min-w-[3ch] ${positionColor} ${textColor}`}
       >
         {position !== undefined && isFinite(position) ? position : ''}
       </td>
