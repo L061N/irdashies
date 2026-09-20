@@ -91,6 +91,7 @@ export interface SessionBarConfig {
 export interface StylingOptions {
   badge?: boolean;
   statusBadges?: boolean;
+  columnHeaders?: { enabled: boolean };
   driverPosition?: { background?: boolean };
   driverNumber?: { background?: boolean; border?: boolean };
   lapCount?: { minimal?: boolean };
