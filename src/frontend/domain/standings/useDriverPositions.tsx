@@ -18,7 +18,7 @@ import {
   groupStandingsByClass,
   type LastTimeState,
 } from './createStandings';
-import { GlobalFlags, SessionState } from '@irdashies/types';
+import { GlobalFlags } from '@irdashies/types';
 import { useDriverLivePositions } from './useDriverLivePositions';
 import { useRelativeSettings } from './useRelativeSettings';
 import { useRadioActiveCarIdxs } from './useRadioActiveCarIdxs';
@@ -181,10 +181,6 @@ export const useDriverStandings = () => {
     const sessionPositionsMap = new Map(
       sessionPositions?.map((position) => [position.CarIdx, position]) ?? []
     );
-    const qualifyingPositionsByCarIdx =
-      qualifyingResults && Array.isArray(qualifyingResults)
-        ? new Map(qualifyingResults.map((q) => [q.CarIdx, q]))
-        : new Map();
 
     const playerLap =
       playerCarIdx !== undefined
@@ -223,24 +219,13 @@ export const useDriverStandings = () => {
         if (livePosition !== undefined) classPosition = livePosition;
       }
 
-      if (!classPosition || !isFinite(classPosition) || classPosition <= 0) {
+      if (classPosition <= 0 || !isFinite(classPosition)) {
         // Class position can become 0 or negative in some edge cases
-        // Before race start it seems to be fine to default to qualifying position
-        // During the race class position should be available
-        // After the race we can fallback to session position
-        if (sessionState !== SessionState.CoolDown) {
-          const qualifyingPosition = qualifyingPositionsByCarIdx.get(
-            driver.carIdx
-          );
-          classPosition = qualifyingPosition
-            ? qualifyingPosition.ClassPosition + 1
-            : undefined;
-        } else {
+        // Fall Back to the Most Recent Session Positions
           const sessionPosition = sessionPositionsMap.get(driver.carIdx);
           classPosition = sessionPosition
             ? sessionPosition.ClassPosition + 1
             : undefined;
-        }
       }
 
       const hasFastestTime =
@@ -313,7 +298,6 @@ export const useDriverStandings = () => {
       .sort((a, b) => (a?.position ?? 0) - (b?.position ?? 0));
   }, [
     sessionPositions,
-    sessionState,
     driverPositions,
     carStates,
     qualifyingResults,
