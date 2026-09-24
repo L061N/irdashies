@@ -218,7 +218,7 @@ export const useDriverStandings = () => {
         if (livePosition !== undefined) classPosition = livePosition;
       }
 
-      if (classPosition <= 0 || !isFinite(classPosition)) {
+      if (classPosition === undefined || classPosition <= 0 || !isFinite(classPosition)) {
         // Class position can become 0 or negative in some edge cases
         // Fall Back to the Most Recent Session Positions
           const sessionPosition = sessionPositionsMap.get(driver.carIdx);
