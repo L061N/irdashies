@@ -163,7 +163,6 @@ export const useDriverStandings = () => {
   const sessionType = useCurrentSessionType();
   const qualifyingResults = useQualifyingResults();
   const timing = useSessionTimingSnapshot();
-  const sessionState = timing?.state ?? 0;
   const sessionNum = timing?.sessionNum;
   const sessionPositions = useSessionPositions(sessionNum ?? undefined);
   const sessionFastestLaps = useSessionFastestLaps(sessionNum ?? undefined);
