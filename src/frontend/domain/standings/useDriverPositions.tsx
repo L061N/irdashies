@@ -18,7 +18,7 @@ import {
   groupStandingsByClass,
   type LastTimeState,
 } from './createStandings';
-import { GlobalFlags } from '@irdashies/types';
+import { GlobalFlags, SessionState } from '@irdashies/types';
 import { useDriverLivePositions } from './useDriverLivePositions';
 import { useRelativeSettings } from './useRelativeSettings';
 import { useRadioActiveCarIdxs } from './useRadioActiveCarIdxs';
